@@ -260,24 +260,25 @@ namespace lab3
             return determinant;
         }
 
-        private SquareMatrix Minor(int row, int column)
+        private SquareMatrix Minor(int excludedRow, int excludedColumn)
         {
             SquareMatrix minorMatrix = new SquareMatrix(Size - 1);
 
-            int minorRow = 0;
-            for (int i = 0; i < Size; ++i)
+            int minorRowIndex = 0;
+            for (int currentRow = 0; currentRow < Size; ++currentRow)
             {
-                if (i == row) continue;
-                int minorColumn = 0;
+                if (currentRow == excludedRow) continue;
 
-                for (int j = 0; j < Size; ++j)
+                int minorColIndex = 0;
+                for (int currentColumn = 0; currentColumn < Size; ++currentColumn)
                 {
-                    if (j == column) continue;
-                    minorMatrix.Matrix[minorRow, minorColumn] = Matrix[i, j];
-                    minorColumn++;
+                    if (currentColumn == excludedColumn) continue;
+
+                    minorMatrix.Matrix[minorRowIndex, minorColIndex] = Matrix[currentRow, currentColumn];
+                    minorColIndex++;
                 }
 
-                minorRow++;
+                minorRowIndex++;
             }
 
             return minorMatrix;
